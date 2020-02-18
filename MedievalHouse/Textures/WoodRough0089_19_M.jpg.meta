@@ -29,7 +29,7 @@ TextureImporter:
     aniso: -1
     mipBias: -1
     wrapMode: 0
-  nPOTScale: 1
+  nPOTScale: 2
   lightmap: 0
   compressionQuality: 50
   spriteMode: 0
@@ -57,6 +57,14 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
   - buildTarget: Standalone
+    maxTextureSize: 1024
+    textureFormat: 10
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+  - buildTarget: Android
     maxTextureSize: 1024
     textureFormat: -1
     textureCompression: 1

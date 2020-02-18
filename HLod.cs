@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEditor;
@@ -8,7 +9,7 @@ using Debug = UnityEngine.Debug;
 public class HLod : MonoBehaviour
 {
 	public Renderer testRender;
-	public RenderTexture TestRenderTexture;
+	public Texture2D TestRenderTexture;
 
 	private TextureCombine tc;
 	// Use this for initialization
@@ -17,7 +18,7 @@ public class HLod : MonoBehaviour
 	
 	void Apply ()
 	{
-		GetComponent<MeshRenderer>().enabled = hlodShowing;
+		 GetComponent<MeshRenderer>().enabled = hlodShowing;
 
 		  tc=new TextureCombine();
 		realItems=new List<Renderer>();
@@ -53,7 +54,9 @@ public class HLod : MonoBehaviour
 				}
 			}
 		}
-		tc.combineAllTextures(4,out TestRenderTexture);
+ 	tc.combineAllTextures(2,out TestRenderTexture);
+       
+      //  return;
 		sw.Stop();
 		print(sw.ElapsedMilliseconds);
 		sw.Reset();
@@ -143,8 +146,14 @@ public class HLod : MonoBehaviour
 
 	}
 
-	private void Update()
+    private void onTextureCmp()
+    {
+        TestRenderTexture = tc.target;
+    }
+
+    private void Update()
 	{
+      
 		if (realItems == null) return;
 		var sqrDis = ((transform.position - Camera.main.transform.position).sqrMagnitude);
 		float showDistance = 40*40;
@@ -175,15 +184,16 @@ public class HLod : MonoBehaviour
 	{
 		if(tc!=null)tc.clear();
 	}
-
-	private void OnGUI()
+ 
+    private void OnGUI()
 	{
 		if (realItems != null) return;
 		GUI.skin.button.fontSize = 36;
 		if (GUI.Button(new Rect(Screen.width/2-200,Screen.height/2,400,40),"实时HLOD模拟离线"))
 		{
-			Apply();
-			 
-		}
+ 
+            Apply();
+
+        }
 	}
 }
